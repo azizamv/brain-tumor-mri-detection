@@ -1,6 +1,7 @@
-numpy==2.0.2
-tensorflow==2.18.0
-keras==3.8.0
-flask==3.1.2
-pillow==11.3.0
+numpy
+tensorflow
+keras
+flask
+pillow
+
 
