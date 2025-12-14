@@ -1,6 +1,5 @@
 import os
 import numpy as np
-os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 import tensorflow as tf
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from PIL import Image
@@ -13,11 +12,6 @@ app = Flask(__name__, static_folder='static')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'brain-tumor-secret-key-2024')
 
-SEED = 42
-os.environ["PYTHONHASHSEED"] = str(SEED)
-np.random.seed(SEED)
-tf.random.set_seed(SEED)
-
 IMG_SIZE = (224, 224)
 CLASS_NAMES = ["glioma", "meningioma", "notumor", "pituitary"]
 
@@ -28,7 +22,7 @@ MODEL_PATH = os.path.join(
     PROJECT_ROOT,
     "outputs",
     "model",
-    "densenet121_model.keras"
+    "densenet121_model.h5"
 )
 
 CLASS_DESCRIPTIONS = {
@@ -299,4 +293,4 @@ if __name__ == '__main__':
     print("="*60 + "\n")
     
     # Run app
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
