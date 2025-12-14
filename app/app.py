@@ -1,5 +1,6 @@
 import os
 import numpy as np
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 import tensorflow as tf
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from PIL import Image
@@ -11,6 +12,11 @@ from datetime import datetime
 app = Flask(__name__, static_folder='static')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'brain-tumor-secret-key-2024')
+
+SEED = 42
+os.environ["PYTHONHASHSEED"] = str(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
 
 IMG_SIZE = (224, 224)
 CLASS_NAMES = ["glioma", "meningioma", "notumor", "pituitary"]
