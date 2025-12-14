@@ -62,8 +62,6 @@ try:
     model.summary()
 except Exception as e:
     print(f"Error loading model: {e}")
-    print("Creating dummy model for testing...")
-    # Create dummy model for testing
     model = None
 
 def allowed_file(filename):
