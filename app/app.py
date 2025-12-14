@@ -22,7 +22,7 @@ MODEL_PATH = os.path.join(
     PROJECT_ROOT,
     "outputs",
     "model",
-    "densenet121_model.h5"
+    "densenet121_model.keras"
 )
 
 CLASS_DESCRIPTIONS = {
