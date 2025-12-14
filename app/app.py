@@ -28,7 +28,7 @@ CLASS_DESCRIPTIONS = {
         "description": "Typically benign tumor arising from the meninges surrounding the brain.",
         "severity": "Medium",
         "color": "#f59e0b",
-        "icon": "fas fa-layer-group"
+        "icon": "fas fa-brain"
     },
     "notumor": {
         "name": "No Tumor",
@@ -42,7 +42,7 @@ CLASS_DESCRIPTIONS = {
         "description": "Tumor developing in the pituitary gland at the base of the brain.",
         "severity": "Medium",
         "color": "#3b82f6",
-        "icon": "fas fa-gland"
+        "icon": "fas fa-brain"
     }
 }
 
@@ -284,5 +284,5 @@ if __name__ == '__main__':
     print(f"Running on: http://localhost:5000")
     print("="*60 + "\n")
     
-    # # Run app
-    # app.run(debug=True, host='0.0.0.0', port=5000)
+    # Run app
+    app.run(debug=True)
