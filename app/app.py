@@ -15,6 +15,16 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'brain-tumor-secret-key-
 IMG_SIZE = (224, 224)
 CLASS_NAMES = ["glioma", "meningioma", "notumor", "pituitary"]
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))
+
+MODEL_PATH = os.path.join(
+    PROJECT_ROOT,
+    "outputs",
+    "model",
+    "densenet121_model.h5"
+)
+
 CLASS_DESCRIPTIONS = {
     "glioma": {
         "name": "Glioma",
@@ -28,7 +38,7 @@ CLASS_DESCRIPTIONS = {
         "description": "Typically benign tumor arising from the meninges surrounding the brain.",
         "severity": "Medium",
         "color": "#f59e0b",
-        "icon": "fas fa-layer-group"
+        "icon": "fas fa-brain"
     },
     "notumor": {
         "name": "No Tumor",
@@ -42,7 +52,7 @@ CLASS_DESCRIPTIONS = {
         "description": "Tumor developing in the pituitary gland at the base of the brain.",
         "severity": "Medium",
         "color": "#3b82f6",
-        "icon": "fas fa-gland"
+        "icon": "fas fa-brain"
     }
 }
 
@@ -56,14 +66,12 @@ prediction_stats = {
 
 print("Loading model...")
 try:
-    model = tf.keras.models.load_model('../outputs/model/densenet121_model.h5')
+    model = tf.keras.models.load_model(MODEL_PATH)
     print(f"Model loaded successfully!")
     print(f"Model summary:")
     model.summary()
 except Exception as e:
     print(f"Error loading model: {e}")
-    print("Creating dummy model for testing...")
-    # Create dummy model for testing
     model = None
 
 def allowed_file(filename):
@@ -285,4 +293,4 @@ if __name__ == '__main__':
     print("="*60 + "\n")
     
     # Run app
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True)
