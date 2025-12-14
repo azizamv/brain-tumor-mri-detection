@@ -1,5 +1,5 @@
 numpy
-tensorflow==2.13.1
+tensorflow
 keras
 flask
 pillow
