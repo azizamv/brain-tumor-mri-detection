@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Brain Tumor Scan AI | Brain Tumor Classification</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header animate__animated animate__fadeIn">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Brain Tumor Scan AI</h1>
+                        <p>Advanced Brain Tumor Classification using Deep Learning</p>
+                    </div>
+                </div>
+                <div class="stats-grid" id="statsGrid">
+                    
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-grid">
+            <!-- Left Column - Upload & Info -->
+            <div class="upload-area-column">
+                <div class="upload-card animate__animated animate__fadeInLeft">
+                    <h2 style="margin-bottom: 1rem; color: var(--primary-dark);">
+                        <i class="fas fa-upload me-2"></i>Upload MRI Scan
+                    </h2>
+                    <p style="color: var(--gray); margin-bottom: 2rem;">
+                        Upload a brain MRI scan for AI-powered tumor classification. 
+                        Our system supports DICOM, PNG, JPG, and other medical imaging formats.
+                    </p>
+                    
+                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                        <div class="upload-icon">
+                            <i class="fas fa-file-medical-alt"></i>
+                        </div>
+                        <h3 style="margin-bottom: 10px; color: var(--primary);">Drag & Drop</h3>
+                        <p style="color: var(--gray); margin-bottom: 20px;">
+                            or click to browse files
+                        </p>
+                        <p style="font-size: 0.9rem; color: var(--gray);">
+                            Maximum file size: 16MB<br>
+                            Supported formats: PNG, JPG, JPEG, GIF, BMP, TIFF
+                        </p>
+                    </div>
+                    
+                    <input type="file" id="fileInput" class="file-input" accept="image/*" onchange="handleFileSelect(event)">
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn pulse" onclick="document.getElementById('fileInput').click()">
+                            <i class="fas fa-search-plus"></i> Select MRI Image
+                        </button>
+                    </div>
+
+                    <!-- Class Information -->
+                    <div class="classes-grid" style="margin-top: 2rem;">
+                        {% for class_name, info in class_descriptions.items() %}
+                        <div class="class-card" style="border-top-color: {{ info.color }};">
+                            <div class="class-icon" style="color: {{ info.color }};">
+                                <i class="{{ info.icon }}"></i>
+                            </div>
+                            <h4 style="margin-bottom: 10px; color: var(--dark);">{{ info.name }}</h4>
+                            <p style="font-size: 0.9rem; color: var(--gray); margin-bottom: 10px;">{{ info.description[:80] }}...</p>
+                            <span style="font-size: 0.8rem; padding: 4px 12px; background: {{ info.color }}; color: white; border-radius: 20px;">
+                                {{ info.severity }}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Results -->
+            <div class="results-column">
+                <div class="results-card" id="resultsCard">
+                    <div class="result-header">
+                        <div class="result-badge" id="resultBadge">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div>
+                            <h2 id="resultTitle">Analysis Results</h2>
+                            <p id="resultSubtitle" style="color: var(--gray);">Prediction will appear here</p>
+                        </div>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="image-preview-container">
+                        <img id="imagePreview" class="image-preview" alt="MRI Preview">
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <small id="imageInfo" style="color: var(--gray);"></small>
+                            <small id="imageSize" style="color: var(--gray);"></small>
+                        </div>
+                    </div>
+
+                    <!-- Confidence Meter -->
+                    <div style="margin: 2rem 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="font-weight: 600; color: var(--dark);">AI Confidence</span>
+                            <span id="confidenceValue" style="font-weight: 700; color: var(--primary-dark);">--%</span>
+                        </div>
+                        <div class="confidence-meter">
+                            <div class="confidence-fill" id="confidenceFill" style="width: 0%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Probability Distribution -->
+                    <div>
+                        <h4 style="margin-bottom: 1rem; color: var(--dark);">
+                            <i class="fas fa-chart-pie me-2"></i>Probability Distribution
+                        </h4>
+                        <div id="probabilityBars" style="margin-bottom: 2rem;">
+                            <!-- Probability bars will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Detailed Information -->
+                    <div id="detailedInfo">
+                        <!-- Detailed info will be inserted here -->
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; gap: 10px; margin-top: 2rem;">
+                        <button class="btn" onclick="analyzeAgain()" style="flex: 1;">
+                            <i class="fas fa-redo"></i> Analyze Another
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chart Container -->
+                <div class="chart-container" id="chartContainer" style="display: none;">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark);">
+                        <i class="fas fa-chart-bar me-2"></i>Prediction Statistics
+                    </h4>
+                    <canvas id="probabilityChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Brain Tumor Scan AI | Powered by DenseNet121 Deep Learning Model</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                <i class="fas fa-shield-alt"></i> All analyses are processed locally. Your data remains private.
+            </p>
+        </footer>
+    </div>
+    <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
