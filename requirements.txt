@@ -3,5 +3,6 @@ tensorflow
 keras
 flask
 pillow
+gunicorn
 
 
