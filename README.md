@@ -1,6 +1,6 @@
 # 🧠 Brain Tumor Scan AI
 
-Brain Tumor Scan AI is a web-based application for **brain tumor classification from MRI images** using Fine-tuned DenseNet121. The system allows users to upload MRI scans, processes them with a trained neural network model, and displays prediction results with confidence scores and visualizations.
+Brain Tumor Scan AI is a web-based application for **brain tumor classification from MRI images** using **Fine-tuned DenseNet121**. The system allows users to upload MRI scans, processes them with a trained neural network model, and displays prediction results with confidence scores and visualizations.
 
 This project is built using **Flask** for the backend and **HTML, CSS, JavaScript** for the frontend.
 
@@ -101,4 +101,5 @@ This application is **not a medical diagnostic tool**. Predictions are generated
 * Dataset: https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset
 
 ---
+
 
