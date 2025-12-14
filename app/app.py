@@ -15,6 +15,16 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'brain-tumor-secret-key-
 IMG_SIZE = (224, 224)
 CLASS_NAMES = ["glioma", "meningioma", "notumor", "pituitary"]
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))
+
+MODEL_PATH = os.path.join(
+    PROJECT_ROOT,
+    "outputs",
+    "model",
+    "densenet121_model.h5"
+)
+
 CLASS_DESCRIPTIONS = {
     "glioma": {
         "name": "Glioma",
@@ -56,7 +66,7 @@ prediction_stats = {
 
 print("Loading model...")
 try:
-    model = tf.keras.models.load_model('../outputs/model/densenet121_model.h5')
+    model = tf.keras.models.load_model(MODEL_PATH)
     print(f"Model loaded successfully!")
     print(f"Model summary:")
     model.summary()
