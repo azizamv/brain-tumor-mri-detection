@@ -321,7 +321,7 @@ function updateStatistics(stats) {
             <div class="stat-icon">
                 <i class="fas fa-bolt"></i>
             </div>
-            <div class="stat-value">99.39%</div>
+            <div class="stat-value">99.24%</div>
             <div class="stat-label">Accuracy</div>
         </div>
     `;
