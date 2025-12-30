@@ -2,7 +2,10 @@
 
 Brain Tumor Scan AI is a web-based application for **brain tumor classification from MRI images** using **Fine-tuned DenseNet121**. The system allows users to upload MRI scans, processes them with a trained neural network model, and displays prediction results with confidence scores and visualizations.
 
-This project is built using **Flask** for the backend and **HTML, CSS, JavaScript** for the frontend.
+This project is built using **Flask** for the backend and **HTML, CSS, JavaScript** for the frontend. This project also utilizes Docker for containerization and Hugging Face Space for deployment.
+
+## Demo
+Try the application on Hugging Face Spaces: https://huggingface.co/spaces/azizamv/brain-tumor-mri-detection
 
 ---
 
@@ -16,6 +19,7 @@ This project is built using **Flask** for the backend and **HTML, CSS, JavaScrip
 ---
 
 ## Tech Stack
+
 - Backend: Python, Flask, Gunicorn
 - Frontend: HTML, CSS, Javascript
 - AI: Tensorflow, Keras, Numpy
@@ -94,6 +98,7 @@ This application is **not a medical diagnostic tool**. Predictions are generated
 * Dataset: https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset
 
 ---
+
 
 
 
