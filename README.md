@@ -16,18 +16,11 @@ This project is built using **Flask** for the backend and **HTML, CSS, JavaScrip
 ---
 
 ## Tech Stack
-
-### Backend
-
-* Python 3
-* Flask
-
-### Frontend
-
-* HTML
-* CSS
-* JavaScript (Vanilla)
-
+- Backend: Python, Flask, Gunicorn
+- Frontend: HTML, CSS, Javascript
+- AI: Tensorflow, Keras, Numpy
+- DevOps: Git, Docker
+  
 ---
 
 ## Getting Started
@@ -101,6 +94,7 @@ This application is **not a medical diagnostic tool**. Predictions are generated
 * Dataset: https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset
 
 ---
+
 
 
 
