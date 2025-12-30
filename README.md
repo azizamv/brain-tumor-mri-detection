@@ -8,7 +8,7 @@ This project is built using **Flask** for the backend and **HTML, CSS, JavaScrip
 
 ## Features
 
-* Upload brain MRI images (PNG, JPG, JPEG, etc.)
+* Upload brain MRI images (PNG, JPG, JPEG)
 * AI-powered brain tumor classification
 * Confidence score
 * Light/Dark mode toggle
@@ -101,6 +101,7 @@ This application is **not a medical diagnostic tool**. Predictions are generated
 * Dataset: https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset
 
 ---
+
 
 
 
