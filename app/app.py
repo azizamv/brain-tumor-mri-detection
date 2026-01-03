@@ -20,9 +20,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))
 
 MODEL_PATH = os.path.join(
     PROJECT_ROOT,
-    "outputs",
     "model",
-    "densenet121_model.keras"
+    "densenet121_partialfinetuned_tumor.keras"
 )
 
 CLASS_DESCRIPTIONS = {
